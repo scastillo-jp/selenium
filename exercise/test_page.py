@@ -7,24 +7,32 @@ class PythonOrgSearch(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.driver.get("http://www.python.org")
+        self.driver.get("https://www.espol.edu.ec/es/educacion")
 
-    def test_search_in_python_org(self):
-        """Tests python.org search feature. Searches for the word "pycon" then
-        verified that some results show up.  Note that it does not look for
-        any particular text in search results page. This test verifies that
-        the results were not empty."""
+    def test_search_in_espol_site(self):
+        """Searches for the title "ESPOL - Educación" then
+        verified that some results show up"""
 
-        #Load the main page. In this case the home page of Python.org.
+        #Load the main page. In this case the home page of www.espol.edu.ec/es/educacion
         main_page = page.MainPage(self.driver)
-        #Checks if the word "Python" is in title
-        assert main_page.is_title_matches(), "python.org title doesn't match."
-        #Sets the text of search textbox to "pycon"
-        main_page.search_text_element = "pycon"
-        main_page.click_go_button()
-        search_results_page = page.SearchResultsPage(self.driver)
+        #Checks if the word "ESPOL - Educación" is in title
+        assert main_page.is_title_matches(), "ESPOL - Educación title doesn't match."
+        
+    def test_set_section_to_find(self):
+        """"Set name section to find or search in the page"""
+
+        # Sets the text of grado"
+        main_page = page.MainPage(self.driver)
+        main_page.search_text_element = "grado"
+        assert main_page.search_text_element, "grado section doesn't match."
+
+
+    def test_verify_that_the_results_page_is_not_empty(self):
+        """"ss"""
+        search_results_page = page.searchDataInGradoSection(self.driver)
+
         #Verifies that the results page is not empty
-        assert search_results_page.is_results_found(), "No results found."
+        assert search_results_page.get_data_sections(), "No results found."
 
     def tearDown(self):
         self.driver.close()
