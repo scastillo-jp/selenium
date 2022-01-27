@@ -28,7 +28,7 @@ class PythonOrgSearch(unittest.TestCase):
 
 
     def test_verify_that_the_results_page_is_not_empty(self):
-        """"ss"""
+        """"Verifies that the results method searchDataInGradoSection is not empty"""
         search_results_page = page.searchDataInGradoSection(self.driver)
 
         #Verifies that the results page is not empty
